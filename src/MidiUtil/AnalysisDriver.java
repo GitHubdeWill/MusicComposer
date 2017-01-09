@@ -16,7 +16,9 @@ public class AnalysisDriver
 
 //		String file = files[rand.nextInt(files.length)].getAbsolutePath();
 		String file = dirName + "Valtsu_-_188s.mid";
-		MidiFileAnalysis.readFile(file);
-		SimpleMidiPlayer.play(file);
+		String targetFile = dirName + "test.mid";
+//		MidiFileAnalysis.readFile(file);
+		MidiFileAnalysis.transformFile(file, targetFile);
+		SimpleMidiPlayer.play(targetFile);
 	}
 }

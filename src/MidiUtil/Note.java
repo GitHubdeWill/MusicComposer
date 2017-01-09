@@ -6,10 +6,19 @@ public class Note
 	int note;
 	int channel = 0;
 	int velocity = 70;
-	int start_p;
-	int length;
-	int end_p;
+	long start_p;
+	long length;
+	long end_p;
 	public Note(int note, int channel, int velocity, int start_p, int length)
+	{
+		this.note = note;
+		this.channel = channel;
+		this.velocity = velocity;
+		this.start_p = start_p;
+		this.length = length;
+		this.end_p = start_p + length;
+	}
+	public Note(int note, int channel, int velocity, long start_p, long length)
 	{
 		this.note = note;
 		this.channel = channel;
@@ -32,27 +41,27 @@ public class Note
 	{
 		this.note = note;
 	}
-	public int getStart_p()
+	public long getStart_p()
 	{
 		return start_p;
 	}
-	public void setStart_p(int start_p)
+	public void setStart_p(long start_p)
 	{
 		this.start_p = start_p;
 	}
-	public int getLength()
+	public long getLength()
 	{
 		return length;
 	}
-	public void setLength(int length)
+	public void setLength(long length)
 	{
 		this.length = length;
 	}
-	public int getEnd_p()
+	public long getEnd_p()
 	{
 		return end_p;
 	}
-	public void setEnd_p(int end_p)
+	public void setEnd_p(long end_p)
 	{
 		this.end_p = end_p;
 	}
