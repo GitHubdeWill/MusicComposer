@@ -15,9 +15,10 @@ public class AnalysisDriver
 		Random rand = new Random();
 
 //		String file = files[rand.nextInt(files.length)].getAbsolutePath();
-		String file = dirName + "Valtsu_-_188s.mid";
+		String file = dirName + "Disney_Themes_-_Fantasmic.mid";
 		String targetFile = dirName + "test.mid";
 //		MidiFileAnalysis.readFile(file);
+//		SimpleMidiPlayer.play(file);
 		MidiFileAnalysis.transformFile(file, targetFile);
 		SimpleMidiPlayer.play(targetFile);
 	}

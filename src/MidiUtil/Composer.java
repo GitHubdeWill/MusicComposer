@@ -129,7 +129,10 @@ public class Composer
 						Composer.getRanItemFromArray(new int[]{1,2,3})//Inversion
 						)) {
 					//Add each notes in the chord
-					mBuilder.addNote(new Note(C+c-12, realTime, ticks*unitLength),0);
+					for (long t = 0; t < ticks*unitLength; t +=ticks){
+						if (drythmn[(int)(t/ticks)] != 0 && 
+								drythmn[(int)(t/ticks)] != 2)mBuilder.addNote(new Note(C+c-12, (int)(realTime + t), ticks),5);
+					}
 					note = c;
 				}
 				mBuilder.addNote(new Note(36, 9, 100, realTime, ticks*unitLength),9);

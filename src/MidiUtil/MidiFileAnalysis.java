@@ -177,6 +177,11 @@ public class MidiFileAnalysis
 		   out(key+">>"+value.toString());
 		}
 		mBuilder.writeToFile();
+//		try { 
+//			Thread.sleep(sequence.getMicrosecondLength()/1000);
+//		} catch (Exception e) {
+//			
+//		}
 	}
 	
 	private static void out (String str) {

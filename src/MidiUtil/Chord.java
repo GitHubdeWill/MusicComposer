@@ -85,8 +85,7 @@ public class Chord
 
 	public void addNote(int note)
 	{
-		if (!notes.contains(note))
-			this.notes.add(note);
+		this.notes.add(note);
 		if (!baseNotes.contains(note%12))baseNotes.add(note%12);
 		sort();
 	}
