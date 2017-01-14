@@ -22,13 +22,13 @@ public class Composer
 	public static final int[] 	
 				CHROMATIC_SCALE = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},
 				
-				IONIAN_SCALE = {0, 2, 4, 5, 7, 9, 11},
-				DORIAN_SCALE = {0, 2, 3, 5, 7, 9, 10},
-				PHRYGIAN_SCALE = {0, 1, 3, 5, 7, 8, 10},
+				IONIAN_SCALE = {0, 2, 4, 7, 9, 11},
+				DORIAN_SCALE = {0, 2, 3, 5, 7, 10},
+				PHRYGIAN_SCALE = {0, 3, 5, 7, 10},
 				LYDIAN_SCALE = {0, 2, 4, 6, 7, 9, 11},
-				MIXOLYDIAN_SCALE = {0, 2, 4, 5, 7, 9, 10},
-				AEOLION_SCALE = {0, 2, 3, 5, 7, 8, 10},
-				LOCRIAN_SCALE = {0, 1, 3, 5, 6, 8, 10},
+				MIXOLYDIAN_SCALE = {0, 2, 4, 7, 9, 10},
+				AEOLION_SCALE = {0, 2, 3, 5, 7, 10},
+				LOCRIAN_SCALE = {0, 3, 5, 6, 8, 10},
 				
 				HARMONIC_MINOR_SCALE = {0, 2, 3, 5, 7, 8, 11},
 				MELODIC_MINOR_SCALE = {0, 2, 3, 5, 7, 8, 9, 10, 11},
@@ -56,34 +56,55 @@ public class Composer
 			{0,2,7,12}, //SUS2
 			{0,5,7,12}, //SUS4
 	};
-	
+	public final static int[][] SCALE_TYPE = {
+			{0,3},//MAJ
+			{1,5},//MIN
+			{4,8,9},//Mix7
+			{10},//AUG7
+			{11},//DIM7
+			{12},//HAFDIM7
+			{13},//7
+			{14},//MIX7SUS4
+			{15},//AUGMAJ7
+			{16},//MAJ6
+			{17},//MIN6
+			{7},//BLUES
+	};
 	public final static int[][] MAJOR_SCALES = {
-			{0, 2, 4, 7, 9, 11},
-			BLUES_SCALE,
-			{0, 2, 3, 5, 7, 10},
-			BLUES_SCALE,
-			{0, 3, 5, 7, 10},
-			{0, 2, 4, 6, 7, 9, 11},
-			BLUES_SCALE,
-			{0, 2, 4, 7, 9, 10},
-			BLUES_SCALE,
-			{0, 2, 3, 5, 7, 10},
-			BLUES_SCALE,
-			{0, 3, 5, 6, 8, 10},
+			IONIAN_SCALE,
+			DORIAN_SCALE,
+			PHRYGIAN_SCALE,
+			LYDIAN_SCALE,
+			MIXOLYDIAN_SCALE,
+			AEOLION_SCALE,
+			LOCRIAN_SCALE,
 
-			{0,2,3,4,7,9}
+			BLUES_SCALE,
+			//Mix
+			{0,1,3,4,6,7,9,10},
+			{0,1,3,4,6,8,10},
+			//AUG7
+			{0,2,4,6,8,10},
+			//DIM7
+			{0,2,3,5,6,8,9,11},
+			//HALFDIM7
+			{0,1,3,5,6,8,10},
+			//7
+			{0,2,3,5,6,7,9,11},
+			//G7sus4
+			{0,2,5,7,9,10},
+			//AUGMAJ7
+			{0,2,4,6,8,9,11},
+			//MAJ6
+			IONIAN_SCALE,
+			//MIN6
+			{0,2,3,5,6,7,9,11},
+			
+			
+			
 	};
 	
 	
-	//Note,Chord,Inversion
-	public final static int[][] SIMPLE_PROGRESSION = {
-			{0,9,4,9,2,5,5,7,0,9,2,11,4,0,5,7},//Root Note
-			{0,4,4,4,4,2,0,3,2,3,4,3 ,4,3,2,3},//Chord
-			{0,9,4,9,2,5,5,7,0,9,2,11,4,0,5,7}//Scale Type
-//			{0,9,5,7},
-//			{0,1,0,0},
-//			{0,9,5,7}
-	};
 	public final static int[][] SIMPLE_BLUES_PROGRESSION = {
 			{0,0,0,0,5,5,0,0,7,5,0,0},//Root Note
 			{3,3,3,3,3,3,3,3,3,3,3,3},//Chord
@@ -113,10 +134,12 @@ public class Composer
 	
 	public static int getTransNote (int [][] scale_table ,int scaleType, int note) {
 //		return getRanItemFromArray(MAJOR_SCALES[scaleType]);
-		for (int i = 0; i < scale_table[scaleType].length; i++) {
-			if (scale_table[scaleType][i] == note) return scale_table[scaleType][(Math.abs(i+getRanPN())%scale_table[scaleType].length)];
+		int index = getRanItemFromArray(SCALE_TYPE[scaleType]);
+		for (int i = 0; i < scale_table[index].length; i++) {
+			if (scale_table[index][i] == note) 
+				return scale_table[index][(Math.abs(i+getRanPN())%scale_table[index].length)];
 		}
-		return getRanItemFromArray(MAJOR_SCALES[scaleType]);
+		return getRanItemFromArray(scale_table[index]);
 	}
 	
 	public static int getRanPN() {
@@ -274,7 +297,7 @@ public class Composer
 						note = Composer.getTransNote(scaleTable, prog.getScaleType(i), note);
 						mBuilder.addNote(new Note(C+prog.getRootNote(i)//Add offset
 							+(note)//get Note from scale type
-							, 0, 100
+							, 0, 100-Math.abs(realTime%ticks)
 							, realTime, ticks*2),0);
 					}
 					
