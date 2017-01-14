@@ -57,18 +57,18 @@ public class Composer
 			{0,5,7,12}, //SUS4
 	};
 	public final static int[][] SCALE_TYPE = {
-			{0,3},//MAJ
-			{1,5},//MIN
-			{4,8,9},//Mix7
-			{10},//AUG7
-			{11},//DIM7
-			{12},//HAFDIM7
-			{13},//7
-			{14},//MIX7SUS4
-			{15},//AUGMAJ7
-			{16},//MAJ6
-			{17},//MIN6
-			{7},//BLUES
+			{0,3},//MAJ 0
+			{1,5},//MIN 1
+			{4,8,9},//Mix7 2
+			{10},//AUG7 3
+			{11},//DIM7 4
+			{12},//HAFDIM7 5
+			{13},//7 6
+			{14},//MIX7SUS4 7
+			{15},//AUGMAJ7 8
+			{16},//MAJ6 9
+			{17},//MIN6 10
+			{7},//BLUES 11
 	};
 	public final static int[][] MAJOR_SCALES = {
 			IONIAN_SCALE,
@@ -238,13 +238,7 @@ public class Composer
 		// C major
 		if (rythmn.length != unitLength || drythmn.length != unitLength) throw new IllegalArgumentException();
 		Progression prog = new Progression();
-		int[] min, maj = new int[2];
-		min = new int[]{2,9};
-		maj = new int[]{0,5};
-		Random ra = new Random();
 		for (int i = 0; i < progression[0].length; i++) {
-			if (progression[2][i] == 2 || progression[2][i] == 9) progression[2][i] = min[ra.nextInt(1)];
-			if (progression[2][i] == 0 || progression[2][i] == 5) progression[2][i] = maj[ra.nextInt(1)];
 			prog.addChord(progression[0][i],progression[1][i],progression[2][i]);
 		}
 		int realTime = 0;
@@ -260,7 +254,6 @@ public class Composer
 						Composer.getRanItemFromArray(new int[]{0,1,2})//Inversion
 						)) {
 //					//Add each notes in the chord
-					int delay = 0;
 					for (long t = 0; t < ticks*unitLength; t +=ticks){
 						if (drythmn[(int)(t/ticks)] != 0 && 
 								drythmn[(int)(t/ticks)] != 2)mBuilder.addNote(new Note(C+c-12, 5, 100, (int)(realTime + t), ticks),5);
@@ -305,6 +298,13 @@ public class Composer
 					time+=12;
 				}
 			}
+			for (int c : Composer.getChordInversion(prog.getRootNote(0),//RootNote
+					prog.getChordType(0),//Chord Type
+					Composer.getRanItemFromArray(new int[]{0,1,2})//Inversion
+					)) {
+//				//Add each notes in the chord
+					mBuilder.addNote(new Note(C+c-12, 5, 100, (int)(realTime), ticks*8),5);
+			}		
 		}
 	}
 	
