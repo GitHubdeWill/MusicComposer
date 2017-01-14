@@ -240,12 +240,12 @@ public class Composer
 					int delay = 0;
 					for (long t = 0; t < ticks*unitLength; t +=ticks){
 						if (drythmn[(int)(t/ticks)] != 0 && 
-								drythmn[(int)(t/ticks)] != 2)mBuilder.addNote(new Note(C+c-12, (int)(realTime + t), ticks),5);
+								drythmn[(int)(t/ticks)] != 2)mBuilder.addNote(new Note(C+c-12, 5, 100, (int)(realTime + t), ticks),5);
 					}
 					note = c;
 				}
-				mBuilder.addNote(new Note(C+prog.getRootNote(i)-12, (realTime), ticks*8),2);
-				mBuilder.addNote(new Note(C+prog.getRootNote(i)-12, (realTime+ticks*12), ticks*4),2);
+				mBuilder.addNote(new Note(C+prog.getRootNote(i)-12, 2, 100, (realTime), ticks*8),2);
+				mBuilder.addNote(new Note(C+prog.getRootNote(i)-12, 2, 100, (realTime+ticks*12), ticks*4),2);
 				mBuilder.addNote(new Note(36, 9, 100, realTime, ticks*unitLength),9);
 				time+=ticks; realTime+=ticks;
 				
@@ -265,8 +265,8 @@ public class Composer
 					
 					if (time == ticks * unitLength / 2)
 						mBuilder.addNote(//Chord notes
-								new Note(C+Composer.getRanItemFromArray(Composer.getChordInversion(prog.getRootNote(i), 
-										prog.getChordType(i), Composer.getRanItemFromArray(new int[]{1,2,3}))) , realTime, ticks),0);
+								new Note(C+Composer.getRanItemFromArray(Composer.getChordInversion(prog.getRootNote(i),
+										prog.getChordType(i), Composer.getRanItemFromArray(new int[]{1,2,3}))), 0, 100, realTime, ticks),0);
 					else if (//rythmn[time/ticks] == 1
 							new Random().nextBoolean()
 //							true
@@ -274,6 +274,7 @@ public class Composer
 						note = Composer.getTransNote(scaleTable, prog.getScaleType(i), note);
 						mBuilder.addNote(new Note(C+prog.getRootNote(i)//Add offset
 							+(note)//get Note from scale type
+							, 0, 100
 							, realTime, ticks*2),0);
 					}
 					

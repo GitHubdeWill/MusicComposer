@@ -18,21 +18,7 @@ public class Note
 		this.length = length;
 		this.end_p = start_p + length;
 	}
-	public Note(int note, int channel, int velocity, long start_p, long length)
-	{
-		this.note = note;
-		this.channel = channel;
-		this.velocity = velocity;
-		this.start_p = start_p;
-		this.length = length;
-		this.end_p = start_p + length;
-	}
-	public Note (int note, int start, int length) {
-		this.note = note;
-		this.start_p = start;
-		this.length = length;
-		this.end_p = start + length;
-	}
+	
 	public int getNote()
 	{
 		return note;

@@ -26,6 +26,7 @@ public class MidiFileBuilder
 		for (int i = 0; i < 16; i++){
 			tracks[i] = sequence.createTrack();
 		}
+		
 		init();
 	}
 	
@@ -51,19 +52,19 @@ public class MidiFileBuilder
 		tracks[0].add(me);
 		
 		mm = new ShortMessage();
-	    mm.setMessage(ShortMessage.PROGRAM_CHANGE, 0x00, 0x00);
+		mm.setMessage(0xC0, 0x00, 68, 0x00);
 	    me = new MidiEvent(mm,(long)0);
 	    tracks[0].add(me);
 	    
 	    mm = new ShortMessage();
-	    mm.setMessage(0xC0, 0x02, 0x27, 0x00);
+	    mm.setMessage(0xC0, 0x02, 33, 0x00);
 	    me = new MidiEvent(mm,(long)0);
-	    tracks[0].add(me);
+	    tracks[2].add(me);
 	    
 	    mm = new ShortMessage();
-	    mm.setMessage(0xC0, 0x05, 0x19, 0x00);
+	    mm.setMessage(0xC0, 0x05, 00, 0x00);
 	    me = new MidiEvent(mm,(long)0);
-	    tracks[0].add(me);
+	    tracks[5].add(me);
 		} catch (InvalidMidiDataException e) {
 			e.printStackTrace();
 			System.exit(1);

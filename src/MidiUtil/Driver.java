@@ -10,7 +10,7 @@ public class Driver
 	public static void main(String[] args)
 	{
 		long l = System.currentTimeMillis();
-		String file = "D:\\Drive\\temp2.mid";
+		String file = args[0];
 		MidiFileBuilder mBuilder = new MidiFileBuilder(48, file);
 
 		int[][] progression_5 = {
@@ -31,7 +31,10 @@ public class Driver
 		ImageReader ir = new ImageReader("D:\\Drive\\eclipseWorkSpace\\MusicComposor\\test.jpg");
 		int[][] pp = ir.marchThroughImage();
 		
-		Composer.compose(mBuilder, Composer.SIMPLE_PROGRESSION, Composer.MAJOR_SCALES, Composer.SIMPLE_RYTHMN, Composer.SIMPLE_DRYTHMN, 12,5,16);
+		int[][][] progs = new int[][][]{Composer.SIMPLE_PROGRESSION, progression_3, progression_4
+			,progression_5};
+		
+		Composer.compose(mBuilder, progs[Composer.getRanItemFromArray(new int[]{0,1,2,3})], Composer.MAJOR_SCALES, Composer.SIMPLE_RYTHMN, Composer.SIMPLE_DRYTHMN, 12,5,16);
 		mBuilder.writeToFile();
 		MidiFileAnalysis.readFile(file);
 		SimpleMidiPlayer.play(file);
