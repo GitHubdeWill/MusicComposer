@@ -40,15 +40,30 @@ public class MidiFileBuilder
 		
 		//****  set omni on  ****
 		ShortMessage mm = new ShortMessage();
-		mm.setMessage(0xB0, 0x7D,0x00);
-		me = new MidiEvent(mm,(long)0);
-		tracks[0].add(me);
+//		mm.setMessage(0xB0, 0x7D,0x00);
+//		me = new MidiEvent(mm,(long)0);
+//		tracks[0].add(me);
 
-		//****  set poly on  ****
+//		****  set poly on  ****
 		mm = new ShortMessage();
 		mm.setMessage(0xB0, 0x7F,0x00);
 		me = new MidiEvent(mm,(long)0);
 		tracks[0].add(me);
+		
+		mm = new ShortMessage();
+	    mm.setMessage(ShortMessage.PROGRAM_CHANGE, 0x00, 0x00);
+	    me = new MidiEvent(mm,(long)0);
+	    tracks[0].add(me);
+	    
+	    mm = new ShortMessage();
+	    mm.setMessage(0xC0, 0x02, 0x27, 0x00);
+	    me = new MidiEvent(mm,(long)0);
+	    tracks[0].add(me);
+	    
+	    mm = new ShortMessage();
+	    mm.setMessage(0xC0, 0x05, 0x19, 0x00);
+	    me = new MidiEvent(mm,(long)0);
+	    tracks[0].add(me);
 		} catch (InvalidMidiDataException e) {
 			e.printStackTrace();
 			System.exit(1);
